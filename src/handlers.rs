@@ -1,5 +1,7 @@
 use axum::{response::Html};
-use std::time::Instant; // Importer Instant pour chronométrer
+use std::time::Instant; 
+
+// Importer Instant pour chronométrer
 use crate::element::HtmlElement;
 use rayon::prelude::*; // Import rayon's parallel iterator traits
 use rayon::iter::ParallelIterator; // Explicitly import ParallelIterator
@@ -10,56 +12,51 @@ pub async fn root() -> Html<String> {
 
     let mut body: HtmlElement = HtmlElement::new("body");
     body
-        .add_class("bg-blue-500");
+        .add_class("bg-neutral-800 w-screen h-screen flex justify-center flex-col");
+    let header: &mut HtmlElement = body.add_child(HtmlElement::new("header"))
+        .add_class("flex flex-col items-center justify-center h-1/4 w-full bg-neutral-900 border-b-2 border-neutral-700");  
+
+    let mut h1: HtmlElement = HtmlElement::new("h1");
+    h1.add_text("JetRust").add_class("text-8xl text-white font-bold");
+    header.add_child(h1);
 
     
-    // body.get_children().reserve(1000);
-
+    let mut div: HtmlElement = HtmlElement::new("div");
+    div.add_class("flex flex-col items-center justify-center h-3/4 w-full bg-neutral-900 border-b-2 border-neutral-700 overflow-y-auto"); 
     // for i in 0..10_000 {
-    //     let mut p = HtmlElement::new("p");
-    //     p.add_text(&format!("Ceci est le paragraphe numéro {}", i));
-    //     body.add_child(p);
-    // }
-
-
-    // let children: Vec<_> = (0..10_000).into_par_iter()
-    // .map(|i| {
-    //     let mut p = HtmlElement::new("p");
-    //     p.add_text(&format!("Ceci est le paragraphe numéro {}", i));
-    //     p
-    // })
-    // .collect();
-    // body.add_children(children);
-
-    // let n_children = 10_000; // Nombre d'enfants à créer
+        //     let mut p = HtmlElement::new("p");
+        //     p.add_text(&format!("Ceci est le paragraphe numéro {}", i));
+        //     body.add_child(p);
+        // }
+        
+        body.get_children().reserve(100);
+        
+        let children: Vec<_> = (0..100).into_par_iter()
+        .map(|i| {
+            let mut p = HtmlElement::new("p");
+            p.add_text(&format!("Ceci est le paragraphe numéro {}", i));
+            p
+        })
+        .collect();
+    div.add_children(children);
+    body.add_child(div);
+    
+    // let n_children = 1; // Nombre d'enfants à créer
 
     // let mut children = body.get_children(); 
-    // children.reserve(n_children); 
+    // children.reserve(n_children ); 
 
     // (0..n_children)
     // .into_par_iter()
     // .map(|i| {
-    //     let mut p = HtmlElement::new("div");
-    //     p.add_style("display: flex; flex-direction: column; align-items: center;");
-        
-    //     let p_children = p.get_children(); // Obtenir le vecteur d'enfants de p
-    //     p_children.reserve(3);
-
-    //     (0..3).into_par_iter().map({
-    //         |j| {
-    //             let mut span = HtmlElement::new("span");
-    //             span.add_text(&format!("Ceci est le span numéro {}", j));
-    //             span
-    //         }
-    //     }).collect_into_vec(p_children);
-
-    //     p
+    //     let mut div = HtmlElement::new("div");
+    //     div.add_class("bg-neutral-900 border-b-2 ").add_text("where am i ?");
+    //     div
     // })
     // .collect_into_vec(&mut children); // Collecte directement dans le vecteur préalloué.
     
     
-
-
+    
     println!("New request received");
 
     let title = "Bienvenue sur mon site";
@@ -70,7 +67,7 @@ pub async fn root() -> Html<String> {
 <html lang="fr">
     <head>
         <title>{}</title>
-        <link rel="stylesheet" href="/static/global.css">
+        <link rel="stylesheet" href="/static/css/output.css">
     </head>
    {}
 </html>

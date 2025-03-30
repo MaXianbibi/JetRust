@@ -2,6 +2,8 @@ use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use std::collections::HashMap;
 use uuid::Uuid;
 
+
+
 #[derive(Debug, Clone)]
 /// Represents an HTML element with its associated properties.
 ///
@@ -55,6 +57,9 @@ impl HtmlElement {
     }
 
     pub fn add_class(&mut self, class: &str) -> &mut Self {
+
+
+
         self.attributes
             .insert("class".to_string(), class.to_string());
         self
@@ -66,9 +71,12 @@ impl HtmlElement {
         self
     }
 
-    pub fn add_child(&mut self, child: HtmlElement) {
+    pub fn add_child(&mut self, child: HtmlElement) -> &mut HtmlElement {
         self.children.push(child);
+        self.children.last_mut().unwrap()
     }
+
+
 
     pub fn add_children(&mut self, children: Vec<HtmlElement>) {
         self.children.extend(children); // Utilise extend pour ajouter plusieurs enfants
