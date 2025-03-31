@@ -56,12 +56,16 @@ impl HtmlElement {
         self
     }
 
+    pub fn add_event(&mut self, event: &str, callback: &str) -> &mut Self {
+        self.attributes.insert(event.to_string(), callback.to_string());
+        self
+    }
+
+
+
     pub fn add_class(&mut self, class: &str) -> &mut Self {
-
-
-
         self.attributes
-            .insert("class".to_string(), class.to_string());
+            .insert("class".to_string(), class.split_whitespace().collect::<Vec<_>>().join(" "));
         self
     }
 
@@ -75,8 +79,6 @@ impl HtmlElement {
         self.children.push(child);
         self.children.last_mut().unwrap()
     }
-
-
 
     pub fn add_children(&mut self, children: Vec<HtmlElement>) {
         self.children.extend(children); // Utilise extend pour ajouter plusieurs enfants
@@ -94,6 +96,4 @@ impl HtmlElement {
     pub fn get_children(&mut self) -> &mut Vec<HtmlElement> {
         &mut self.children
     }
-
-
 }

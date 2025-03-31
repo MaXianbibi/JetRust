@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="modulepreload" href="/counter-client-311f49e6c55c625f.js" crossorigin="anonymous" integrity="sha384-c0gLTULOZ44BU53CPBggGpkzn3vrljHfsltFCUZV0AOwm0xNc42QyKiRwHh/kiKl"><link rel="preload" href="/counter-client-311f49e6c55c625f_bg.wasm" crossorigin="anonymous" integrity="sha384-X9Y7vN6TcSmYbxEx3IGkqNrTU33uT5tlTmnnMxLqsr5BianD4x1rTEf5dCw7hyDx" as="fetch" type="application/wasm"></head>
+<body>
+
+<script type="module">
+import init, * as bindings from '/counter-client-311f49e6c55c625f.js';
+const wasm = await init({ module_or_path: '/counter-client-311f49e6c55c625f_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script></body>
+</html>
